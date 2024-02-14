@@ -4,7 +4,8 @@
   "type": "module",
   "description": "Svelte 5 asynchronous query library",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "build": "vite build"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
