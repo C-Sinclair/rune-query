@@ -1,4 +1,9 @@
 /**
+ * @type {Cache}
+ */
+let cache = $state({});
+
+/**
  *
  * @param {Fn} fn
  * @returns
