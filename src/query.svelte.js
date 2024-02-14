@@ -57,6 +57,15 @@ export function createQuery(fn, expiry = FIVE_MINUTES) {
         },
       };
     },
+    invalidate() {
+      const key = serialize(f, args, salt);
+      if (!cache[key]) {
+        console.error("No query found for", key);
+        return;
+      }
+      const { fetcher } = cache[key];
+      fetcher();
+    },
   };
 }
 

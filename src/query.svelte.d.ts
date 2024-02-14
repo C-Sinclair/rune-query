@@ -26,4 +26,8 @@ type Queryable<T = any> = {
   query: (...args: any[]) => {
     data: T;
   };
+  /**
+   * A function to manually refetch the data using the fetcher
+   */
+  invalidate: () => void;
 };
