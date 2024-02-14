@@ -29,5 +29,5 @@ type Queryable<T = any> = {
   /**
    * A function to manually refetch the data using the fetcher
    */
-  invalidate: () => void;
+  invalidate: (...args: any[]) => void;
 };

@@ -35,7 +35,7 @@ export function createQuery(fn, expiry = FIVE_MINUTES) {
 
       // the fetcher uses closures to re-run the same query with the same args when needed
       function fetcher() {
-        f(...args).then((result) => {
+        fn(...args).then((result) => {
           // this is reactive, so mutating the data will be picked up by Svelte
           cache[key].data = result;
         });
@@ -57,8 +57,8 @@ export function createQuery(fn, expiry = FIVE_MINUTES) {
         },
       };
     },
-    invalidate() {
-      const key = serialize(f, args, salt);
+    invalidate(...args) {
+      const key = serialize(fn, args, salt);
       if (!cache[key]) {
         console.error("No query found for", key);
         return;
