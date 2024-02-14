@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "peerDependencies": {
+    "svelte": "5.0.0-next.54"
+  },
   "keywords": [
     "Svelte5",
     "runes"
