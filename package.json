@@ -7,6 +7,8 @@
     "src",
     "README.md"
   ],
+  "main": "src/index.js",
+  "types": "src/query.svelte.d.ts",
   "scripts": {
     "test": "vitest",
     "build": "vite build"
@@ -23,7 +25,12 @@
     "Svelte5",
     "runes"
   ],
-  "author": "C-Sinclair <conor@sinclair.software>",
+  "author": "Conor Sinclair <conor@sinclair.software>",
   "license": "ISC",
-  "packageManager": "pnpm@8.15.1"
+  "packageManager": "pnpm@8.15.1",
+  "homepage": "https://github.com/C-Sinclair/rune-query",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/C-Sinclair/rune-query.git"
+  }
 }
