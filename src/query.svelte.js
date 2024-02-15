@@ -1,15 +1,14 @@
 /**
- * @type {CacheObject}
+ * @typedef {import("./query.svelte").Fn} Fn
+ *
+ * @type {import("./query.svelte").CacheObject}
  */
 let cache = $state({});
 
 const FIVE_MINUTES = 1000 * 60 * 5;
 
 /**
- * @template T
  * @param {Fn} fn
- * @param {number | undefined} expiry
- * @returns {Queryable<T>}
  */
 export function createQuery(fn, expiry = FIVE_MINUTES) {
   // a unique salt for each createQuery invocation

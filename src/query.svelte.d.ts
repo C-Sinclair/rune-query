@@ -21,14 +21,20 @@ type CacheObject = {
   };
 };
 
-type Queryable<T = any> = {
+export type Queryable<T = any> = {
   /**
    *
    * @param args -- any arguments that the fetcher function needs
    * @returns An object with a _reactive_ data getter
    */
   query: (...args: any[]) => {
+    /**
+     * @reactive - the data returned from the fetcher
+     */
     data: T;
+    /**
+     * @reactive - a flag to indicate if the data is currently being fetched
+     */
     loading: boolean;
   };
   /**
@@ -36,3 +42,5 @@ type Queryable<T = any> = {
    */
   invalidate: (...args: any[]) => void;
 };
+
+export declare function createQuery<T>(fn: Fn, expiry?: number): Queryable<T>;

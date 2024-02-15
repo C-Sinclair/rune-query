@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "lib": ["ESNext"],
+    "allowJs": true,
+    "checkJs": true,
+    "types": [],
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "files": ["./src/query.svelte.d.ts"],
+  "include": ["./src/*.js"]
+}
