@@ -11,6 +11,10 @@ type CacheObject = {
      */
     data: unknown;
     /**
+     * A flag to indicate if the data is currently being fetched
+     */
+    loading: boolean;
+    /**
      * A function that will fetch the data and update the cache record
      */
     fetcher: () => void;
@@ -25,6 +29,7 @@ type Queryable<T = any> = {
    */
   query: (...args: any[]) => {
     data: T;
+    loading: boolean;
   };
   /**
    * A function to manually refetch the data using the fetcher

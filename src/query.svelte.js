@@ -29,31 +29,41 @@ export function createQuery(fn, expiry = FIVE_MINUTES) {
             get data() {
               return cache[key].data;
             },
+            get loading() {
+              return cache[key].loading;
+            },
           };
         }
       }
 
       // the fetcher uses closures to re-run the same query with the same args when needed
       function fetcher() {
+        cache[key].loading = true;
         fn(...args).then((result) => {
           // this is reactive, so mutating the data will be picked up by Svelte
           cache[key].data = result;
+          cache[key].loading = false;
         });
       }
-      // immediately trigger the fetcher
-      fetcher();
 
       // add to the cache
       cache[key] = {
         expiry: Date.now() + expiry,
         data: undefined,
+        loading: true,
         fetcher,
       };
+
+      // immediately trigger the fetcher
+      fetcher();
 
       // return reactive data for consumers
       return {
         get data() {
           return cache[key].data;
+        },
+        get loading() {
+          return cache[key].loading;
         },
       };
     },

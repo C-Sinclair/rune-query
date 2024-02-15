@@ -21,6 +21,22 @@ describe("createQuery", () => {
     expect(q.data).toBe("hello");
     expect(spy).toHaveBeenCalledTimes(2);
   });
+
+  test("loading is true initially until fetching is complete", async () => {
+    let { query } = createQuery(async () => "hello");
+    let q = query();
+    expect(q.loading).toBe(true);
+    await waitForData(q);
+    expect(q.loading).toBe(false);
+  });
+
+  test("invalidate triggers the loading state to be true", async () => {
+    let { query, invalidate } = createQuery(async () => "hello");
+    let q = query();
+    await waitForData(q);
+    invalidate();
+    expect(q.loading).toBe(true);
+  });
 });
 
 async function waitForData(q) {
