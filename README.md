@@ -2,6 +2,8 @@
 
 > A library for handling asynchronous functions with Runes
 
+[![.github/workflows/test.yaml](https://github.com/C-Sinclair/rune-query/actions/workflows/test.yaml/badge.svg)](https://github.com/C-Sinclair/rune-query/actions/workflows/test.yaml)
+
 ## Usage
 
 ```js
