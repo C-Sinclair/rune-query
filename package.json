@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "type": "module",
   "description": "Svelte 5 asynchronous query library",
+  "files": [
+    "src",
+    "README.md"
+  ],
   "scripts": {
     "test": "vitest",
     "build": "vite build"
