@@ -24,5 +24,6 @@
     "runes"
   ],
   "author": "C-Sinclair <conor@sinclair.software>",
-  "license": "ISC"
+  "license": "ISC",
+  "packageManager": "pnpm@8.15.1"
 }
