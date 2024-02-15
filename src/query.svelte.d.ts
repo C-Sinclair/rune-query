@@ -1,4 +1,4 @@
-type Fn = (...args: any[]) => Promise<void>;
+type Fn<T = any> = (...args: any[]) => Promise<T>;
 
 type CacheObject = {
   [key: string]: {
@@ -43,4 +43,7 @@ export type Queryable<T = any> = {
   invalidate: (...args: any[]) => void;
 };
 
-export declare function createQuery<T>(fn: Fn, expiry?: number): Queryable<T>;
+export declare function createQuery<T>(
+  fn: Fn<T>,
+  expiry?: number
+): Queryable<T>;
