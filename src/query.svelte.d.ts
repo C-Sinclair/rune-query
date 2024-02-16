@@ -15,6 +15,10 @@ export type CacheObject = {
      */
     loading: boolean;
     /**
+     * An error object if the fetcher fails
+     */
+    error?: Error;
+    /**
      * A function that will fetch the data and update the cache record
      */
     fetcher: () => void;
@@ -31,15 +35,37 @@ export type QueryReturn<T = any> =
       /**
        * @reactive - the data returned from the fetcher
        */
+      data: T | undefined;
+      /**
+       * @reactive - a flag to indicate if the data is currently being fetched
+       */
+      loading: true;
+      error: undefined;
+    }
+  | {
+      /**
+       * @reactive - the data returned from the fetcher
+       */
       data: T;
       /**
        * @reactive - a flag to indicate if the data is currently being fetched
        */
       loading: false;
+      error: undefined;
     }
   | {
+      /**
+       * @reactive - the data returned from the fetcher
+       */
       data: T | undefined;
-      loading: true;
+      /**
+       * @reactive - a flag to indicate if the data is currently being fetched
+       */
+      loading: false;
+      /**
+       * @reactive - an error object if the fetcher fails
+       */
+      error: Error;
     };
 
 export type Queryable<T = any> = {

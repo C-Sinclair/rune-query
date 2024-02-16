@@ -5,6 +5,11 @@ let cache = $state({});
 
 const FIVE_MINUTES = 1000 * 60 * 5;
 
+/**
+ * @template T
+ * @param {import("./query.svelte").Fn<T>} fn
+ * @param {number} expiry
+ */
 export function createQuery(fn, expiry = FIVE_MINUTES) {
   // a unique salt for each createQuery invocation
   const salt = Math.random().toString(36).substring(7);
@@ -26,6 +31,9 @@ export function createQuery(fn, expiry = FIVE_MINUTES) {
             get loading() {
               return cache[key].loading;
             },
+            get error() {
+              return cache[key].error;
+            },
           };
         }
       }
@@ -33,17 +41,28 @@ export function createQuery(fn, expiry = FIVE_MINUTES) {
       // the fetcher uses closures to re-run the same query with the same args when needed
       function fetcher() {
         cache[key].loading = true;
-        fn(...args).then((result) => {
-          // this is reactive, so mutating the data will be picked up by Svelte
-          cache[key].data = result;
-          cache[key].loading = false;
-        });
+        cache[key].error = undefined;
+        fn(...args)
+          .then((result) => {
+            // this is reactive, so mutating the data will be picked up by Svelte
+            cache[key].data = result;
+            cache[key].loading = false;
+          })
+          .catch((error) => {
+            cache[key].error = error;
+            cache[key].loading = false;
+            // TODO: add config flag for this
+            // if (invalidateDataOnError) {
+            //   cache[key].data = undefined;
+            // }
+          });
       }
 
       // add to the cache
       cache[key] = {
         expiry: Date.now() + expiry,
         data: undefined,
+        error: undefined,
         loading: true,
         fetcher,
       };
@@ -58,6 +77,9 @@ export function createQuery(fn, expiry = FIVE_MINUTES) {
         },
         get loading() {
           return cache[key].loading;
+        },
+        get error() {
+          return cache[key].error;
         },
       };
     },
@@ -83,6 +105,3 @@ export function createQuery(fn, expiry = FIVE_MINUTES) {
 function serialize(f, a, salt) {
   return ((f && f["name"]) || "anonymous") + salt + JSON.stringify(a || "");
 }
-
-m.createQuery = createQuery;
-export default m;
