@@ -1,6 +1,6 @@
-type Fn<T = any> = (...args: any[]) => Promise<T>;
+export type Fn<T = any> = (...args: any[]) => Promise<T>;
 
-type CacheObject = {
+export type CacheObject = {
   [key: string]: {
     /**
      * The time the data expires and needs to be refreshed
@@ -43,7 +43,4 @@ export type Queryable<T = any> = {
   invalidate: (...args: any[]) => void;
 };
 
-export declare function createQuery<T>(
-  fn: Fn<T>,
-  expiry?: number
-): Queryable<T>;
+export function createQuery<T>(fn: Fn<T>, expiry?: number): Queryable<T>;

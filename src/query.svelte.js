@@ -1,15 +1,10 @@
 /**
- * @typedef {import("./query.svelte").Fn} Fn
- *
  * @type {import("./query.svelte").CacheObject}
  */
 let cache = $state({});
 
 const FIVE_MINUTES = 1000 * 60 * 5;
 
-/**
- * @param {Fn} fn
- */
 export function createQuery(fn, expiry = FIVE_MINUTES) {
   // a unique salt for each createQuery invocation
   const salt = Math.random().toString(36).substring(7);
@@ -80,7 +75,7 @@ export function createQuery(fn, expiry = FIVE_MINUTES) {
 
 /**
  *
- * @param {Fn} f
+ * @param {import("./query.svelte").Fn} f
  * @param {any[]} a
  * @param {string} salt
  * @returns {string}
@@ -88,3 +83,6 @@ export function createQuery(fn, expiry = FIVE_MINUTES) {
 function serialize(f, a, salt) {
   return ((f && f["name"]) || "anonymous") + salt + JSON.stringify(a || "");
 }
+
+m.createQuery = createQuery;
+export default m;
