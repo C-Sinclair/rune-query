@@ -18,6 +18,9 @@ q.loading;
 // The data can be found in the data key
 q.data;
 
+// If an error is thrown in your function, it will be available under the error key
+q.error;
+
 // later, you may wish to invalidate the current data, and refetch
 invalidate();
 // That's it, the reactive `data` and `loading` values above will reactively update
