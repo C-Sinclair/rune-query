@@ -21,22 +21,34 @@ export type CacheObject = {
   };
 };
 
+/**
+ * The return type of the query function
+ * @template T - the type of the data returned from the fetcher
+ * When loading, data could be undefined
+ */
+export type QueryReturn<T = any> =
+  | {
+      /**
+       * @reactive - the data returned from the fetcher
+       */
+      data: T;
+      /**
+       * @reactive - a flag to indicate if the data is currently being fetched
+       */
+      loading: false;
+    }
+  | {
+      data: T | undefined;
+      loading: true;
+    };
+
 export type Queryable<T = any> = {
   /**
    *
    * @param args -- any arguments that the fetcher function needs
    * @returns An object with a _reactive_ data getter
    */
-  query: (...args: any[]) => {
-    /**
-     * @reactive - the data returned from the fetcher
-     */
-    data: T;
-    /**
-     * @reactive - a flag to indicate if the data is currently being fetched
-     */
-    loading: boolean;
-  };
+  query: (...args: any[]) => QueryReturn<T>;
   /**
    * A function to manually refetch the data using the fetcher
    */

@@ -22,3 +22,19 @@ q.data;
 invalidate();
 // That's it, the reactive `data` and `loading` values above will reactively update
 ```
+
+### Type inference
+
+The type for `data` is inferred from the `ReturnType` of your async function. This means no manually typing expected types etc.
+
+```ts
+let { query } = createQuery(async () => 123);
+query.data; // number | undefined
+let { query } = createQuery(async () => "hello world");
+query.data; // string | undefined
+
+// when loading is complete, the data type will resolve to just the type (not undefined anymore)
+if (!query.loading) {
+  query.data; // string
+}
+```
