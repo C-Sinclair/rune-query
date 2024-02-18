@@ -84,8 +84,14 @@ export type Queryable<T = any> = {
 type CreateQueryConfig = {
   /**
    * The time in milliseconds that the data will be considered fresh
+   * @default 300000 - 5 minutes
    */
   expiry?: number;
+  /**
+   * A flag to indicate if the data should be invalidated if the fetcher fails
+   * @default false - the data will not be invalidated
+   */
+  invalidateDataOnError?: boolean;
 };
 
 export function createQuery<T>(

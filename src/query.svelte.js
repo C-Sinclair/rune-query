@@ -14,7 +14,7 @@ export function createQuery(fn, config = {}) {
   // a unique salt for each createQuery invocation
   const salt = Math.random().toString(36).substring(7);
 
-  const { expiry = FIVE_MINUTES } = config;
+  const { expiry = FIVE_MINUTES, invalidateDataOnError = false } = config;
 
   return {
     query(...args) {
@@ -53,10 +53,10 @@ export function createQuery(fn, config = {}) {
           .catch((error) => {
             cache[key].error = error;
             cache[key].loading = false;
-            // TODO: add config flag for this
-            // if (invalidateDataOnError) {
-            //   cache[key].data = undefined;
-            // }
+
+            if (invalidateDataOnError) {
+              cache[key].data = undefined;
+            }
           });
       }
 
