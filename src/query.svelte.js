@@ -8,11 +8,13 @@ const FIVE_MINUTES = 1000 * 60 * 5;
 /**
  * @template T
  * @param {import("./query.svelte").Fn<T>} fn
- * @param {number} expiry
+ * @param {import('./query.svelte').CreateQueryConfig} config
  */
-export function createQuery(fn, expiry = FIVE_MINUTES) {
+export function createQuery(fn, config = {}) {
   // a unique salt for each createQuery invocation
   const salt = Math.random().toString(36).substring(7);
+
+  const { expiry = FIVE_MINUTES } = config;
 
   return {
     query(...args) {

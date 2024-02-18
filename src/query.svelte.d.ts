@@ -81,4 +81,14 @@ export type Queryable<T = any> = {
   invalidate: (...args: any[]) => void;
 };
 
-export function createQuery<T>(fn: Fn<T>, expiry?: number): Queryable<T>;
+type CreateQueryConfig = {
+  /**
+   * The time in milliseconds that the data will be considered fresh
+   */
+  expiry?: number;
+};
+
+export function createQuery<T>(
+  fn: Fn<T>,
+  config?: CreateQueryConfig
+): Queryable<T>;
