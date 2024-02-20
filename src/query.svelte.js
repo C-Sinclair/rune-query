@@ -42,17 +42,24 @@ export function createQuery(fn, config = {}) {
 
       // the fetcher uses closures to re-run the same query with the same args when needed
       function fetcher() {
+        let start = Date.now();
         cache[key].loading = true;
         cache[key].error = undefined;
         fn(...args)
           .then((result) => {
+            let end = Date.now();
+
             // this is reactive, so mutating the data will be picked up by Svelte
             cache[key].data = result;
             cache[key].loading = false;
+            cache[key].invocations.push([start, end]);
           })
           .catch((error) => {
+            let end = Date.now();
+
             cache[key].error = error;
             cache[key].loading = false;
+            cache[key].invocations.push([start, end]);
 
             if (invalidateDataOnError) {
               cache[key].data = undefined;
@@ -67,6 +74,7 @@ export function createQuery(fn, config = {}) {
         error: undefined,
         loading: true,
         fetcher,
+        invocations: [],
       };
 
       // immediately trigger the fetcher

@@ -22,6 +22,10 @@ export type CacheObject = {
      * A function that will fetch the data and update the cache record
      */
     fetcher: () => void;
+    /**
+     * A list of invocation times for the fetcher
+     */
+    invocations: [number, number][];
   };
 };
 
